@@ -16,13 +16,34 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
-
+/* render home.ejs and send it to root */
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {
+    homeStartingContent: homeStartingContent
+  });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about", {
+    aboutContent: aboutContent
+  });
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact", {
+    contactContent: contactContent
+  });
+});
+
+app.get("/compose", (req, res) => {
+  res.render("compose");
 });
 
 
-
+app.post("/", (req, res) => {
+  console.log(req.body.newTitle);
+  console.log(req.body.newPost);
+});
 
 
 
