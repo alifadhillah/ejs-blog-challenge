@@ -15,11 +15,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+/* global variables */
+let posts = [];
 
-/* render home.ejs and send it to root */
+/* render home.ejs and send it to root, can send array to render too */
 app.get("/", (req, res) => {
   res.render("home", {
-    homeStartingContent: homeStartingContent
+    homeStartingContent: homeStartingContent,
+    posts:posts
   });
 });
 
@@ -39,17 +42,33 @@ app.get("/compose", (req, res) => {
   res.render("compose");
 });
 
+app.get("/posts/:post", (req, res) => {
+  
+  const request = req.params.post;
 
-app.post("/", (req, res) => {
-  console.log(req.body.newTitle);
-  console.log(req.body.newPost);
+  posts.forEach(post => {
+    if (post.title === request) {
+      console.log("match found " + request);
+    }
+  });
+
 });
 
 
+/* posting the value of the name newTitle and newPost to root */
+app.post("/compose", (req, res) => {
+/* create a JS object newPost */
+  const newPost = {
+    title: req.body.newTitle,
+    body: req.body.newBody
+  }
+/* push every newPost to posts */
+  posts.push(newPost); 
+  res.redirect("/");
+  console.log(posts);
+});
 
-
-
-
+  
 
 
 

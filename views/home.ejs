@@ -6,4 +6,12 @@
         <h1>Home</h1>
         <p><%= homeStartingContent %></p>
 
-<%- include("partials/footer"); -%> 
+        <% posts.forEach(async (post) => { %>
+                <br> 
+                <h1><%= post.title%></h1>
+                <p><%= post.body%></p>   
+        <% }); %> 
+        
+
+<%- include("partials/footer"); -%>
+
