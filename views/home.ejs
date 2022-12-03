@@ -7,9 +7,23 @@
         <p><%= homeStartingContent %></p>
 
         <% posts.forEach(async (post) => { %>
-                <br> 
-                <h1><%= post.title%></h1>
-                <p><%= post.body%></p>   
+                <br>
+                <h1>
+                        <a class="home-title" href="/posts/<%= post.title%>">        
+                                <%= post.title%>
+                        </a>
+                </h1>
+               
+                <div class="container p-0">
+                <div class="row ms-0 p-0">
+                        <div class="col col-auto ms-0 p-0">
+                        <p class="body-preview"><%= post.body.substring(0,100)%> ...</p>
+                        </div>
+                        <div class="col">
+                        <a class="read-more" href="/posts/<%= post.title%>">Read more</a>
+                        </div>
+                </div>
+                </div>
         <% }); %> 
         
 

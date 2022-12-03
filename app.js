@@ -47,11 +47,16 @@ app.get("/compose", (req, res) => {
 
 app.get("/posts/:post", (req, res) => {
   
-  const request = req.params.post;
+  const request = _.kebabCase(req.params.post);
+  console.log(request);
 
   posts.forEach(post => {
     if (_.kebabCase(post.title) === request) {
       console.log("match found " + request);
+      res.render("post", {
+        postTitle: post.title,
+        postBody: post.body
+      })
     } else {
       console.log("404");
     }
@@ -68,7 +73,7 @@ app.post("/compose", (req, res) => {
     body: req.body.newBody
   }
 /* push every newPost to posts */
-  posts.push(newPost); 
+  posts.push(newPost);
   res.redirect("/");
 });
 
